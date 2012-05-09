@@ -1,0 +1,190 @@
+%%% A template to produce a nice-looking Curriculum Vitae.
+%%%
+%%% Authored by Caleb McDaniel <caleb.mcdaniel@rice.edu>
+%%% Based on design by Kieran Healy <kjhealy@gmail.com>
+%%% Most recent version of his is at http://kjhealy.github.com/kjh-vita
+%%%
+%%% This template differs from Healy's by using the marginnote package to make
+%%% section titles and using titlesec package to aid the conversion of a
+%%% markdown file to PDF using pandoc and this template. An advantage of this
+%%% approach is that it requires less manual tweaking of spaces. A disadvantage is
+%%% that section titles must be short: a section title longer than "Publications"
+%%% could cause spacing problems.
+%%%
+%%% ------------------------------------------------------------------------
+%%% Requirements (should be included in a modern tex distribution):
+%%% ------------------------------------------------------------------------
+%%%
+%%% xelatex
+%%% fontspec.sty
+%%% hyperrref.sty
+%%% xunicode.sty
+%%% color.sty
+%%% url.sty
+%%% fancyhdr.sty
+%%% marginnote.sty
+%%% titlesec.sty
+%%%
+%%% ------------------------------------------------------------------------
+%%% Optional
+%%% ------------------------------------------------------------------------
+%%%
+%%% Fonts
+%%%
+
+\documentclass[11pt]{article}
+
+%%%------------------------------------------------------------------------
+%%% Metadata
+%%%------------------------------------------------------------------------
+
+%%% Change with your own information
+\def\myauthor{W. Caleb McDaniel}
+\def\mytitle{Vita}
+\def\mycopyright{\myauthor}
+\def\mykeywords{}
+\def\mybibliostyle{plain}
+\def\mybibliocommand{}
+\def\mysubtitle{}
+\def\myaffiliation{Rice University}
+\def\myaddress{History Department}
+\def\myemail{caleb.mcdaniel@rice.edu}
+\def\myweb{http://wcm1.web.rice.edu}
+\def\myphone{(713) 348-2556}
+\def\myfax{(713) 348-5207}
+\def\myversion{}
+\def\myrevision{}
+
+
+\def\myaffiliation{Rice University}
+\def\myauthor{W. Caleb McDaniel}
+\def\mykeywords{McDaniel, Caleb, Caleb McDaniel, History, Vita, CV}
+
+
+%%%------------------------------------------------------------------------
+%%% Required style files
+%%%------------------------------------------------------------------------
+\usepackage{url,fancyhdr}
+\pagestyle{plain}
+
+%% needed for xelatex to work
+\usepackage{fontspec}
+\usepackage{xunicode}
+
+%% color for the links 
+\usepackage[usenames,dvipsnames]{color}
+
+%% hyperlinks
+\usepackage[xetex, 
+	colorlinks=false,
+	urlcolor=Blue,
+	plainpages=false,
+  	pdfpagelabels,
+  	bookmarksnumbered,
+  	pdftitle={\mytitle},
+  	pagebackref,
+  	pdfauthor={\myauthor},
+  	pdfkeywords={\mykeywords}
+  	]{hyperref}
+
+\usepackage{marginnote}
+
+\usepackage[explicit]{titlesec}
+\titleformat{\subsection}[block]{\small}{}{0em}{\marginnote{\textsf{ #1}}}{}
+\titleformat{\subsubsection}[hang]{}{}{0em}{\smallskip\noindent\emph{ #1}}{}
+\titlespacing{\subsection}{0pt}{0pt}{0pt}
+\titlespacing{\subsubsection}{0pt}{0pt}{0pt}
+
+%%%------------------------------------------------------------------------
+%%% Document
+%%%------------------------------------------------------------------------
+\begin{document}
+
+%% Choose fonts for use with xelatex
+\setromanfont[Mapping={tex-text},Numbers={OldStyle},Ligatures={Common}]{Baskerville} 
+\setsansfont[Mapping=tex-text,Colour=AA0000]{Optima Bold}
+\setmonofont[Mapping=tex-text,Scale=0.9]{Inconsolata} 
+
+
+%%%------------------------------------------------------------------------
+%%% Local commands
+%%%------------------------------------------------------------------------
+
+%% custom ampersand (font consistent with the one chosen above)
+\newcommand{\amper}{{\fontspec[Scale=.95,Colour=AA0000]{Baskerville}\selectfont\&\,}}
+
+%% No bullets on labels
+\renewcommand{\labelitemi}{~} 
+
+%% Custom hanging indent for vita items
+\def\ind{\hangindent=1 true cm\hangafter=1 \noindent}
+%\def\ind{\hangindent=18pt\hangafter=1 \noindent}
+\def\labelitemi{~}
+\renewcommand{\labelitemii}{~}
+
+%%%------------------------------------------------------------------------
+%%% Page layout
+%%%------------------------------------------------------------------------
+\thispagestyle{fancy}
+\fancyfoot{}
+\fancyhead{}
+\renewcommand{\headrulewidth}{0pt}
+%%% The next line will put the date revised in footer of first page
+\rfoot{\texttt{\scriptsize Current as of \today}} 
+\widowpenalty=2000
+\clubpenalty=2000
+
+%%%------------------------------------------------------------------------
+%%% Address and contact block
+%%%------------------------------------------------------------------------
+\begin{minipage}[t]{2.95in}
+ \flushright {\footnotesize \href{http://history.rice.edu}{Department of History} \\ Rice University - MS 42 \\ P.O. Box 1892 \\ \vspace{-0.05in} Houston, TX 77251-1892}  
+  
+\end{minipage}
+\hfill     
+%\begin{minipage}[t]{0.0in}
+% dummy (needed here)
+%\end{minipage}
+\hfill
+\begin{minipage}[t]{1.7in}
+  \flushright \footnotesize Phone: \myphone \\ 
+  Fax: \myfax  \\ 
+  {\scriptsize  \texttt{\href{mailto:\myemail}{\myemail}}} \\
+  \vspace{-0.1em}{\scriptsize  \texttt{\href{\myweb}{\myweb}}} 
+\end{minipage}
+
+%% Name 
+\bigskip\bigskip
+\noindent{\huge{W. Caleb McDaniel}}
+\reversemarginpar
+\bigskip\medskip  
+
+%% Positions
+\subsection{Positions}
+
+\subsubsection{Rice University}
+\ind Assistant Professor of History (2008-Present)
+\medskip
+\subsubsection{University of Denver}
+\ind Assistant Professor of History (2006-2008)
+
+\medskip
+
+%% Education
+\subsection{Education}
+
+\subsubsection{Johns Hopkins University}
+
+\ind Ph.D, History, 2006. Dissertation: \emph{Our Country is the World: Radical American Abolitionists Abroad}. %\vspace{-0.1in}  
+\medskip
+\subsubsection{Texas A\&M University}
+
+\ind B.A., History, 2000. \emph{Summa Cum Laude} 
+
+\ind M.A., Philosophy, 2001. Thesis: \emph{An Extraordinary Reversal: Hermeneutics and the Divide between the Sciences} %\vspace{0.01in}
+
+\medskip
+
+$body$
+
+\end{document}
