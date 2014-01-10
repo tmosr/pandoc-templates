@@ -4,6 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!--This page was produced by pandoc using a shell script. See http://wcm1.web.rice.edu/colophon.html for more information.-->
 $for(author-meta)$
   <meta name="author" content="$author-meta$" />
@@ -27,12 +28,22 @@ $for(header-includes)$
   $header-includes$
 $endfor$
 </head>
+
+
+
 <body>
-<div id="box">
+
+<div class="container">
+<div class="row">
+<div class="span2">&nbsp;</div>
+<div class="span7">
+
 $for(include-before)$
 $include-before$
 $endfor$
-<div id="content">
+
+<article>
+
 $if(category)$
 <!--This text is produced by a custom variable in the pandoc template called "category." The value is set by the shell script when processing posts.-->
 <div id="category">$category$</div>$endif$
@@ -49,12 +60,23 @@ $if(date)$
 on $date$$endif$
 </div>
 $endif$
+
 <!--Begin content of the main markdown file for this page, which is processed by pandoc and output as html.-->
+
 $body$
+
 <!--End content from the main markdown file for this page.-->
+
+</article>
+
 $for(include-after)$
 $include-after$
 $endfor$
+
+</div>
+
+<div class="span3">&nbsp;</div>
+
 </div>
 </div>
 </body>

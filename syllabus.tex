@@ -2,14 +2,23 @@
 \usepackage{fullpage,fancyhdr}
 %% color for the links 
 \usepackage[usenames,dvipsnames]{color}
-
+\usepackage{longtable}
+\usepackage{graphicx}
+% We will generate all images so they have a width \maxwidth. This means
+% that they will get their normal width if they fit onto the page, but
+% are scaled down if they would overflow the margins.
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+\else\Gin@nat@width\fi}
+\makeatother
+\let\Oldincludegraphics\includegraphics
+% \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth]{#1}}
 %% hyperlinks
 \usepackage[
 	colorlinks=true,
 	urlcolor=MidnightBlue,
 	plainpages=false,
   	]{hyperref}% color for the links 
-\usepackage{graphicx}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt plus 2pt minus 1pt}
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
@@ -40,7 +49,27 @@ $if(date)$
 \date{$date$}
 $endif$
 
+$if(listings)$
+\usepackage{listings}
+$endif$
+
+$if(tables)$
+\usepackage{ctable}
+\usepackage{float} % provides the H option for float placement
+$endif$
+
+$if(fancy-enums)$
+% Redefine labelwidth for lists; otherwise, the enumerate package will cause
+% markers to extend beyond the left margin.
+\makeatletter\AtBeginDocument{%
+  \renewcommand{\@listi}
+    {\setlength{\labelwidth}{4em}}
+}\makeatother
+\usepackage{enumerate}
+$endif$
+
 \begin{document}
+
 $if(title)$
 \maketitle
 $endif$

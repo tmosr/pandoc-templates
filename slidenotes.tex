@@ -1,25 +1,52 @@
-\documentclass[$if(fontsize)$$fontsize$,$endif$$if(handout)$handout,$endif$$if(beamer)$ignorenonframetext,$endif$]{$documentclass$}
-$if(theme)$
-\usetheme{$theme$}
-$endif$
-\setbeamertemplate{navigation symbols}{}
-$if(colortheme)$
-\usecolortheme{$colortheme$}
-$endif$
+\documentclass[$if(fontsize)$$fontsize$$endif$]{article}
+\usepackage{fullpage}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
+\usepackage{fancyhdr}
+\pagestyle{plain}
 \ifxetex
   \usepackage{fontspec,xltxtra,xunicode}
   \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+$if(mainfont)$
+  \setmainfont{$mainfont$}
+$endif$
+$if(sansfont)$
+  \setsansfont{$sansfont$}
+$endif$
+$if(monofont)$
+  \setmonofont{$monofont$}
+$endif$
+$if(mathfont)$
+  \setmathfont{$mathfont$}
+$endif$
 \else
   \ifluatex
     \usepackage{fontspec}
     \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+    \newcommand{\euro}{€}
+$if(mainfont)$
+    \setmainfont{$mainfont$}
+$endif$
+$if(sansfont)$
+    \setsansfont{$sansfont$}
+$endif$
+$if(monofont)$
+    \setmonofont{$monofont$}
+$endif$
+$if(mathfont)$
+    \setmathfont{$mathfont$}
+$endif$
   \else
     \usepackage[utf8]{inputenc}
+$if(euro)$
+    \usepackage{eurosym}
+$endif$
   \fi
 \fi
+$if(geometry)$
+\usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
+$endif$
 $if(natbib)$
 \usepackage{natbib}
 \bibliographystyle{plainnat}
@@ -43,6 +70,12 @@ $if(verbatim-in-note)$
 \usepackage{fancyvrb}
 $endif$
 $if(fancy-enums)$
+% Redefine labelwidth for lists; otherwise, the enumerate package will cause
+% markers to extend beyond the left margin.
+\makeatletter\AtBeginDocument{%
+  \renewcommand{\@listi}
+    {\setlength{\labelwidth}{4em}}
+}\makeatother
 \usepackage{enumerate}
 $endif$
 $if(tables)$
@@ -54,32 +87,38 @@ $if(url)$
 $endif$
 $if(graphics)$
 \usepackage{graphicx}
-% Remove prefix from captions
-\usepackage[labelformat=empty]{caption}
-% \makeatletter
-% \def\ScaleIfNeededW{%
-%  \ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi} 
-% \def\ScaleIfNeededH{%
-%  \ifdim\Gin@nat@height>\textheight0.9\textheight\else\Gin@nat@height\fi}
-% \makeatother
-% \setkeys{Gin}{width=\ScaleIfNeededW,height=\ScaleIfNeededH,keepaspectratio}
-\usepackage{letltxmacro}
 \makeatletter
-\def\maxheight{\ifdim\Gin@nat@height>550pt\550pt\else\Gin@nat@height\fi}
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxwidth{2in}
 \makeatother
-\AtBeginDocument{
-  \LetLtxMacro\Oldincludegraphics\includegraphics
-  \renewcommand{\includegraphics}[2][]{%
-    \Oldincludegraphics[#1,width=\maxwidth]{#2}}
-}
+\let\Oldincludegraphics\includegraphics
+\renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth]{#1}}
 $endif$
-% Comment these out if you don't want a slide with just the
-% part/section/subsection/subsubsection title:
-\AtBeginPart{\frame{\partpage}}
-\AtBeginSection{\frame{\sectionpage}}
-\AtBeginSubsection{\frame{\subsectionpage}}
-\AtBeginSubsubsection{\frame{\subsubsectionpage}}
+% Remove figure prefix from captions
+\usepackage[labelformat=empty]{caption}
+\providecommand{\note}{\textsf}
+\renewcommand{\large}{\normalsize}
+\renewcommand{\huge}{\normalsize}
+\renewcommand{\Huge}{\normalsize}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex,
+              bookmarks=true,
+              pdfauthor={$author-meta$},
+              pdftitle={$title-meta$},
+              colorlinks=true,
+              urlcolor=blue,
+              linkcolor=blue]{hyperref}
+\else
+  \usepackage[unicode=true,
+              bookmarks=true,
+              pdfauthor={$author-meta$},
+              pdftitle={$title-meta$},
+              colorlinks=true,
+              urlcolor=blue,
+              linkcolor=blue]{hyperref}
+\fi
+\hypersetup{breaklinks=true, pdfborder={0 0 0}}
 $if(strikeout)$
 \usepackage[normalem]{ulem}
 % avoid problems with \sout in headers with hyperref:
@@ -96,7 +135,12 @@ $if(verbatim-in-note)$
 \VerbatimFootnotes % allows verbatim text in footnotes
 $endif$
 $if(lang)$
-\usepackage[$lang$]{babel}
+\ifxetex
+  \usepackage{polyglossia}
+  \setmainlanguage{$mainlang$}
+\else
+  \usepackage[$lang$]{babel}
+\fi
 $endif$
 $for(header-includes)$
 $header-includes$
@@ -112,13 +156,12 @@ $if(date)$
 \date{$date$}
 $endif$
 
-% Turn off section headlines
-\setbeamertemplate{headline}
 
-
+\widowpenalty=2000
+\clubpenalty=2000
 \begin{document}
 $if(title)$
-\frame{\titlepage}
+\maketitle
 $endif$
 
 $for(include-before)$
@@ -126,9 +169,7 @@ $include-before$
 
 $endfor$
 $if(toc)$
-\begin{frame}
-\tableofcontents[hideallsubsections]
-\end{frame}
+\tableofcontents
 
 $endif$
 $body$
