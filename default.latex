@@ -2,6 +2,10 @@
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{fancyhdr}
+$if(lineno)$
+  \usepackage[modulo]{lineno}
+  \linenumbers
+$endif$
 \pagestyle{plain}
 \ifxetex
   \usepackage{fontspec,xltxtra,xunicode}
