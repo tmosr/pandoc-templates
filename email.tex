@@ -1,15 +1,30 @@
 \documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$lang$,$endif$]{$documentclass$}
-\usepackage{amssymb,amsmath}
-$if(fullpage)$
-\usepackage{fullpage}
-$endif$
-\usepackage{ifxetex,ifluatex}
-\usepackage{fancyhdr}
+
 $if(lineno)$
   \usepackage[modulo]{lineno}
   \linenumbers
 $endif$
-\pagestyle{plain}
+\usepackage{amssymb,amsmath,}
+\usepackage{ifxetex,ifluatex}
+
+%%% Things added to default template for muttdoc %%%
+
+\usepackage{lastpage}
+$if(fullpage)$
+\usepackage{fullpage}
+$endif$
+\usepackage{fancyhdr}
+\newlength{\parboxwidth}
+\setlength{\parboxwidth}{\textwidth}
+\addtolength{\parboxwidth}{-5pt}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\lfoot{\today}
+\rfoot{Page \thepage\ of \pageref{LastPage}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \ifxetex
   \usepackage{fontspec,xltxtra,xunicode}
   \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
@@ -63,9 +78,6 @@ $if(biblio-files)$
 \bibliography{$biblio-files$}
 $endif$
 $endif$
-$if(listings)$
-\usepackage{listings}
-$endif$
 $if(lhs)$
 \lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
 $endif$
@@ -118,7 +130,7 @@ $endif$
               bookmarks=true,
               pdfauthor={$author-meta$},
               pdftitle={$title-meta$},
-              colorlinks=true,
+              colorlinks=false,
               urlcolor=blue,
               linkcolor=blue]{hyperref}
 \fi
@@ -160,10 +172,24 @@ $if(date)$
 \date{$date$}
 $endif$
 
+%%% Things added to default template for muttdoc %%%
+
+\usepackage{listings}
+\lstset{breaklines, basicstyle=\small\ttfamily, breakindent=0pt, breakatwhitespace=true}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\lfoot{\today}
+\rfoot{Page \thepage\ of \pageref{LastPage}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \widowpenalty=2000
 \clubpenalty=2000
 \begin{document}
+
+
 $if(title)$
 \maketitle
 $endif$
@@ -176,27 +202,24 @@ $if(toc)$
 \tableofcontents
 
 $endif$
+
+%%% Things added to default template for muttdoc %%%
+
+\parbox{\textwidth}{{\large
+\begin{tabular}[t]{@{}r@{\hspace{3mm}}p{150mm}@{}}
+
+$if(Date)$Date: & $Date$$endif$\\
+From: & $From$\\
+$if(To)$To: & $To$$endif$\\
+\textbf{Subject:} & \textbf{$Subject$}\\
+
+\end{tabular}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\vspace{5mm} \hrule \vspace{5mm}
+
 $body$
 
-$if(natbib)$
-$if(biblio-files)$
-$if(biblio-title)$
-$if(book-class)$
-\renewcommand\bibname{$biblio-title$}
-$else$
-\renewcommand\refname{$biblio-title$}
-$endif$
-$endif$
-\bibliography{$biblio-files$}
 
-$endif$
-$endif$
-$if(biblatex)$
-\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
-
-$endif$
-$for(include-after)$
-$include-after$
-
-$endfor$
 \end{document}
