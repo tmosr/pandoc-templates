@@ -1,6 +1,7 @@
-% tufte-handout.tex - DESC
+% Based on tufte-handout.tex - DESC
 % Iago Mosqueira - JRC. 2013
 % https://gist.github.com/reinholdsson/7426608/566d8104363cd2fef2d6dd50e90aceab377b4a45
+
 \documentclass{tufte-handout}
  
 % ams
@@ -9,6 +10,10 @@
 % add line numbers (Caleb McDaniel)
 \usepackage[modulo]{lineno}
 \linenumbers
+
+% use symbols instead of numbers for footnotes (Caleb McDaniel)
+% http://tex.stackexchange.com/questions/826/symbols-instead-of-numbers-as-footnote-markers
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
 
 % Set up the images/graphics package
 \usepackage{graphicx}
