@@ -8,7 +8,9 @@
 \documentclass{tufte-handout}
  
 % change all figures to margin figures (Caleb McDaniel)
+$if(marginfigures)$
 \renewenvironment{figure}[1][]{\begin{marginfigure}}{\end{marginfigure}}
+$endif$
 
 % ams
 \usepackage{amssymb,amsmath}
