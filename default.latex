@@ -1,4 +1,17 @@
 \documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$lang$,$endif$$if(papersize)$$papersize$,$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$documentclass$}
+
+
+$if(fullpage)$
+\usepackage{fullpage}
+$endif$
+$if(lineno)$
+  \usepackage[modulo]{lineno}
+  \linenumbers
+$endif$
+\usepackage{fancyhdr}
+\pagestyle{plain}
+
+
 $if(fontfamily)$
 \usepackage{$fontfamily$}
 $else$
@@ -9,31 +22,13 @@ $if(linestretch)$
 \setstretch{$linestretch$}
 $endif$
 \usepackage{amssymb,amsmath}
-$if(fullpage)$
-\usepackage{fullpage}
-$endif$
 \usepackage{ifxetex,ifluatex}
-\usepackage{fancyhdr}
-$if(lineno)$
-  \usepackage[modulo]{lineno}
-  \linenumbers
-$endif$
-\pagestyle{plain}
-\ifxetex
-  \usepackage{fontspec,xltxtra,xunicode}
-  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
-  \newcommand{\euro}{€}
-$if(mainfont)$
-  \setmainfont{$mainfont$}
-$endif$
-$if(sansfont)$
-  \setsansfont{$sansfont$}
-$endif$
-$if(monofont)$
-  \setmonofont{$monofont$}
-$endif$
-$if(mathfont)$
-  \setmathfont{$mathfont$}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+$if(euro)$
+  \usepackage{eurosym}
 $endif$
 \else % if luatex or xelatex
   \ifxetex
@@ -45,25 +40,18 @@ $endif$
   \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
   \newcommand{\euro}{€}
 $if(mainfont)$
-    \setmainfont{$mainfont$}
+  \setmainfont{$mainfont$}
 $endif$
 $if(sansfont)$
-    \setsansfont{$sansfont$}
+  \setsansfont{$sansfont$}
 $endif$
 $if(monofont)$
-    \setmonofont[Mapping=tex-ansi]{$monofont$}
+  \setmonofont[Mapping=tex-ansi]{$monofont$}
 $endif$
 $if(mathfont)$
-    \setmathfont(Digits,Latin,Greek){$mathfont$}
+  \setmathfont(Digits,Latin,Greek){$mathfont$}
 $endif$
 \fi
-\usepackage{fixltx2e} % provides \textsubscript
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
-$if(euro)$
-  \usepackage{eurosym}
-$endif$
 % use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 % use microtype if available
