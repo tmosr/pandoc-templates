@@ -106,7 +106,12 @@ $endif$
 \newcommand{\RegionMarkerTok}[1]{{#1}}
 \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
 \newcommand{\NormalTok}[1]{{#1}}
- 
+
+% Support pandoc's -H/--include-in-header option
+$for(header-includes)$
+$header-includes$
+$endfor$
+
 $if(title)$
 \title{$title$}
 $endif$
