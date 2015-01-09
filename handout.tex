@@ -33,6 +33,8 @@ $endif$
 
 % use symbols instead of numbers for footnotes (Caleb McDaniel)
 % http://tex.stackexchange.com/questions/826/symbols-instead-of-numbers-as-footnote-markers
+\usepackage{perpage}
+\MakePerPage{footnote}
 \renewcommand*{\thefootnote}{\fnsymbol{footnote}}
 
 % Set up the images/graphics package
@@ -40,8 +42,8 @@ $endif$
 \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
 \graphicspath{{graphics/}}
  
-\let\Oldincludegraphics\includegraphics
-\renewcommand{\includegraphics}[1]{\Oldincludegraphics[trim={0 3in 0 0},clip,width=\textwidth]{#1}}
+% \let\Oldincludegraphics\includegraphics
+% \renewcommand{\includegraphics}[1]{\Oldincludegraphics[trim={0 3in 0 0},clip,width=\textwidth]{#1}}
 
 % natbib
 \usepackage{natbib}
