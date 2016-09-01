@@ -24,18 +24,29 @@ $endif$
 
 % ams
 \usepackage{amssymb,amsmath}
+
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\fi
  
 % add line numbers (Caleb McDaniel)
 $if(linenos)$
 \usepackage[modulo]{lineno}
 \linenumbers
+% Uncomment next line to make line numbers font match text font (Andrew Dunning)
+% \def\linenumberfont{\normalfont\small}
 $endif$
 
 % use symbols instead of numbers for footnotes (Caleb McDaniel)
 % http://tex.stackexchange.com/questions/826/symbols-instead-of-numbers-as-footnote-markers
+$if(symbol)$
 \usepackage{perpage}
 \MakePerPage{footnote}
 \renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+$endif$
 
 % Set up the images/graphics package
 \usepackage{graphicx}
