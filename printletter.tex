@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass[$if(fontsize)$$fontsize$$else$12pt$endif$]{article}
 \usepackage{fullpage}
 \usepackage[breaklinks=true,colorlinks=false,unicode=true,pdfborder={0 0 0}]{hyperref}
 \setlength{\parindent}{0pt}
@@ -7,18 +7,21 @@
 \widowpenalty=2000
 \clubpenalty=2000
 \usepackage{graphicx}
+\providecommand{\tightlist}{%
+   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
 
 \begin{document}
 \thispagestyle{empty}
 \vspace*{0.5in}
 
-\today
+$if(date)$$date$$else$\today$endif$
 \begin{flushleft}
 $body$
 \end{flushleft}
 
 Sincerely,
 \par%
-W. Caleb McDaniel\\Assistant Professor of History\\caleb.mcdaniel@rice.edu\\713-348-2556
+W. Caleb McDaniel\\Associate Professor of History\\caleb.mcdaniel@rice.edu\\713-348-2556
 
 \end{document}
