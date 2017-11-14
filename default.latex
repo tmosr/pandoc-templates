@@ -85,6 +85,16 @@ $if(tables)$
 \usepackage{longtable,booktabs}
 $endif$
 \usepackage{float} % provides the H option for float placement
+
+% Overwrite \begin{figure}[htbp] with \begin{figure}[H]
+\usepackage{float}
+\let\origfigure=\figure
+\let\endorigfigure=\endfigure
+\renewenvironment{figure}[1][]{%
+  \origfigure[H]
+}{%
+  \endorigfigure
+}
 $if(url)$
 \usepackage{url}
 $endif$
@@ -128,6 +138,8 @@ $endif$
 % \setlength{\parindent}{0pt}
 % \setlength{\parskip}{6pt plus 2pt minus 1pt}
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
+\newcommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 $if(numbersections)$
 \setcounter{secnumdepth}{5}
 $else$
